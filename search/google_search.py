@@ -26,4 +26,4 @@ def google_suche(query):
                 ergebnisse.append({"titel": title, "link": link})
     
 
-    return ergebnisse[:5]
+    return ergebnisse[:100]

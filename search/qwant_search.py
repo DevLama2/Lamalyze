@@ -14,4 +14,4 @@ def qwant_suche(query):
         link = result.get('href', '')
         if link.startswith('http'):
             ergebnisse.append({'titel': titel, 'link': link})
-    return ergebnisse[:5]
+    return ergebnisse[:100]

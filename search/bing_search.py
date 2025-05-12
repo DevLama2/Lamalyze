@@ -15,4 +15,4 @@ def bing_suche(query):
             titel = a.get_text(strip=True)
             link = a['href']
             ergebnisse.append({'titel': titel, 'link': link})
-    return ergebnisse[:5]
+    return ergebnisse[:100]

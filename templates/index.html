@@ -71,7 +71,8 @@
     <form method="post">
         <input type="text" name="suchbegriff" placeholder="Name oder E-Mail" required>
         <button type="submit">Suchen</button>
-        
+        <br>
+        <input type="text" name="Anzahl" placeholder="Anzahl der Ergebnisse(1-100)" required>
     </form>    {% if ergebnisse %}
         <h2>Suchergebnisse für "{{ request.form.get('suchbegriff') }}":</h2>
         {% for e in ergebnisse %}
@@ -84,8 +85,10 @@
                 <h3>Bot wurde geblockt</h3>
                 <p>Die Suchmaschine hat den Bot blockiert. Bitte versuchen Sie es später erneut.</p>
             {% else %}
+                {% set n = request.form.get('Anzahl', 5) %}
+                {% set n = n|int if n is not none and n|string|length > 0 else 5 %}
                 <ul>
-                    {% for eintrag in e %}
+                    {% for eintrag in e[:n] %}
                         <li>
                             <a href="{{ eintrag.link }}" target="_blank">{{ eintrag.titel }}</a>
                             <br>

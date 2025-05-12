@@ -27,4 +27,4 @@ def brave_suche(query):
             link = link_tag["href"]
             ergebnisse.append({"titel": titel, "link": link})
     
-    return ergebnisse[:5]
+    return ergebnisse[:100]

@@ -26,4 +26,4 @@ def duckduckgo_suche(query):
             if href.startswith('http'):
                 ergebnisse.append({'titel': titel, 'link': href})
     
-    return ergebnisse[:5]
+    return ergebnisse[:100]
