@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    ergebnisse = [[], [], []]
+    ergebnisse = []
     search_engines = ["Google", "Brave", "DuckDuckGo"]
     if request.method == "POST":
         suchbegriff = request.form.get("suchbegriff")
@@ -15,8 +15,11 @@ def index():
             ergebnisse.append(google_suche(suchbegriff))
             ergebnisse.append(brave_suche(suchbegriff))
             ergebnisse.append(duckduckgo_suche(suchbegriff))
-
-    return render_template("index.html", ergebnisse=ergebnisse, search_engines=search_engines)
+    
+    return render_template("index.html", 
+                         ergebnisse=ergebnisse, 
+                         search_engines=search_engines,
+                         request=request)
 
 if __name__ == "__main__":
     app.run(debug=True)
