@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OSINT Web UI</title>    <style>
+        body { 
+            font-family: sans-serif; 
+            margin: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        input[type=text] { 
+            padding: 12px;
+            width: 400px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button { 
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .search-engine-results {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .search-engine-results h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        .search-engine-results ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .search-engine-results li {
+            margin: 15px 0;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .search-engine-results li:last-child {
+            border-bottom: none;
+        }
+        .search-engine-results a {
+            color: #1a0dab;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .search-engine-results a:hover {
+            text-decoration: underline;
+        }
+        .url {
+            color: #006621;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Lamalyzer</h1>
+    <form method="post">
+        <input type="text" name="suchbegriff" placeholder="Name oder E-Mail" required>
+        <button type="submit">Suchen</button>
+        
+    </form>    {% if ergebnisse %}
+        <h2>Suchergebnisse für "{{ request.form.get('suchbegriff') }}":</h2>
+        {% for e in ergebnisse %}
+        
+        <div class="search-engine-results">
+                <h3>{{ search_engines[loop.index0] }}</h3>
+                <p>Gefundene Ergebnisse: {{ e|length }}</p>
+
+            {% if e == []%}
+                <h3>Bot wurde geblockt</h3>
+                <p>Die Suchmaschine hat den Bot blockiert. Bitte versuchen Sie es später erneut.</p>
+            {% else %}
+                <ul>
+                    {% for eintrag in e %}
+                        <li>
+                            <a href="{{ eintrag.link }}" target="_blank">{{ eintrag.titel }}</a>
+                            <br>
+                            <small class="url">{{ eintrag.link }}</small>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
