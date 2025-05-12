@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OSINT Web UI</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; }
+        input[type=text] { padding: 8px; width: 300px; }
+        button { padding: 8px 16px; }
+        ul { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>🔍 OSINT-Suche</h1>
+    <form method="post">
+        <input type="text" name="suchbegriff" placeholder="Name oder E-Mail" required>
+        <button type="submit">Suchen</button>
+        
+    </form>
+
+    {% if ergebnisse %}
+        {% for e in ergebnisse %}
+            <li>
+                <strong>{{ search_engines[loop.index0] }}</strong>
+                <ul>
+                    <li>Ergebnisse({{ e|length }}):</li>
+                    <ul>
+                        {% for eintrag in e %}
+                            <li>
+                                <a href="{{ eintrag.link }}" target="_blank">{{ eintrag.titel }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </ul>
+            </li>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
