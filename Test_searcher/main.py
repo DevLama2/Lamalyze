@@ -1,11 +1,16 @@
 from flask import Flask, request, render_template
-from search.duckduckgo_search import duckduckgo_suche
-from search.bing_search import bing_suche
-from search.qwant_search import qwant_suche
-from search.brave_search import brave_suche
-from search.google_search import google_suche
+import os
+from backend.search.duckduckgo_search import duckduckgo_suche
+from backend.search.bing_search import bing_suche
+from backend.search.qwant_search import qwant_suche
+from backend.search.brave_search import brave_suche
+from backend.search.google_search import google_suche
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    template_folder=os.path.join('frontend', 'templates'),
+    static_folder=os.path.join('frontend', 'static')
+)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
